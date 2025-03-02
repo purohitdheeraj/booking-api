@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>API Documentation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+    }
+
+    h1 {
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Welcome to Our Booking API</h1>
+  <p>This API allows you to manage event organizers, customers, events, tickets, and bookings.</p>
+  <h2>Endpoints</h2>
+  <ul>
+    <li><strong>POST</strong> <code>/organizers/register</code> - Register an event organizer</li>
+    <li><strong>POST</strong> <code>/organizers/login</code> - Log in as an event organizer</li>
+    <li><strong>GET</strong> <code>/events</code> - List events</li>
+    <li><strong>POST</strong> <code>/events</code> - Create an event (organizers only)</li>
+    <li><strong>PUT</strong> <code>/events/:id</code> - Update an event (organizers only)</li>
+    <li><strong>DELETE</strong> <code>/events/:id</code> - Delete an event (organizers only)</li>
+    <li><strong>POST</strong> <code>/bookings</code> - Book a ticket (customers only)</li>
+    <!-- Add more endpoints as needed -->
+  </ul>
+  <p>For detailed information, please refer to our API documentation.</p>
+</body>
+
+</html>
