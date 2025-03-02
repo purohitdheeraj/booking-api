@@ -13,6 +13,8 @@ ENV RAILS_ENV=production \
     BUNDLE_PATH=/usr/local/bundle \
     BUNDLE_WITHOUT=development
 
+ENV BUNDLE_PATH=/usr/local/bundle
+
 # --- Build Stage ---
 FROM base as build
 
