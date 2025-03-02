@@ -1,24 +1,59 @@
-# README
+# Booking API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple event booking API built with Ruby on Rails, supporting role-based access control, event management, and booking features.
 
-Things you may want to cover:
+## ER diagram
+![database schema](/ER.png)
 
-* Ruby version
+## Prerequisites
 
-* System dependencies
+- Ruby 3.3.7
+- Rails 7.1.5.1
+- PostgreSQL
+- Redis (for background jobs)
 
-* Configuration
+## Setup & Installation
 
-* Database creation
+### Clone the repository
 
-* Database initialization
+```sh
+git clone https://github.com/purohitdheeraj/booking_api.git
+cd booking_api
+```
 
-* How to run the test suite
+### Install dependencies
 
-* Services (job queues, cache servers, search engines, etc.)
+```sh
+bundle install
+```
 
-* Deployment instructions
+### Set up environment variables
 
-* ...
+Create a `.env` file and configure:
+
+```sh
+DATABASE_URL=your_postgres_url
+SECRET_KEY_BASE=your_secret_key
+```
+
+### Set up the database
+
+```sh
+rails db:create db:migrate db:seed
+```
+
+### Run the server
+
+```sh
+rails s
+```
+
+## API Documentation
+
+When deployed, API documentation is available at:
+[🔗 API Docs](https://booking-api-production-5822.up.railway.app/)
+
+
+## Deployment
+
+Ensure `SECRET_KEY_BASE` and `DATABASE_URL` are set in the production environment. Deploy using Railway or any preferred platform.
