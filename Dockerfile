@@ -16,16 +16,18 @@ ENV RAILS_ENV=production \
 # --- Build Stage ---
 FROM base as build
 
-# Install packages needed for building native extensions and other dependencies
+# Install packages needed for building native extensions and other dependencies,
+# including libyaml-dev for psych.
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
       build-essential \
       git \
       libpq-dev \
       libvips \
-      pkg-config
+      pkg-config \
+      libyaml-dev
 
-# Explicitly install bundler (this ensures a compatible version is used)
+# Explicitly install bundler (ensuring a compatible version is used)
 RUN gem install bundler
 
 # Copy Gemfile and Gemfile.lock (ensure Gemfile.lock includes the Linux platform!)
@@ -40,7 +42,10 @@ RUN rm -rf ~/.bundle/ "$BUNDLE_PATH"/ruby/*/cache "$BUNDLE_PATH"/ruby/*/bundler/
 # Copy the rest of the application code
 COPY . .
 
-# Adjust bin files to be executable and convert line endings for Linux
+# Optionally, precompile bootsnap code for faster boot times (disabled here)
+# RUN bundle exec bootsnap precompile app/ lib/
+
+# Ensure bin files are executable and convert line endings for Linux
 RUN chmod +x bin/* && \
     sed -i "s/\r$//g" bin/* && \
     sed -i 's/ruby\.exe$/ruby/' bin/*
@@ -56,11 +61,11 @@ RUN apt-get update -qq && \
       postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Copy gems and application code from the build stage
+# Copy the gems and application code from the build stage
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
-# Create a non-root user and adjust permissions
+# Create a non-root user and adjust permissions for security
 RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
 USER rails:rails
