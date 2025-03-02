@@ -14,6 +14,7 @@ gem "dotenv-rails", groups: [:development, :test]
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 end
